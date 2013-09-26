@@ -60,6 +60,13 @@ module Fandango
       hash[:locality] = theater_details.css("span[class=locality]").text
       hash[:region] = theater_details.css("span[class=region]").text
       hash[:postal] = theater_details.css("span[class=postal-code]").text
+      phone_text = theater_details.css("p").text
+      if !phone_text.nil?
+        phone_match = phone_text.match(/\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})/)
+        if !phone_match.nil?
+          hash[:phone] = phone_match[0]
+        end
+      end
       hash
     end
 

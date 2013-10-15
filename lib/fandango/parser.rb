@@ -82,7 +82,7 @@ module Fandango
 
           movie_node.css("div[class=times] li").each do |showtime_node|
             hash = {}
-            ticketed_showtime = showtime_node.at_css("a[class=showtime_itr]")
+            ticketed_showtime = showtime_node.at_css("a.showtime_itr")
             if ticketed_showtime.nil?
               hash[:time] = showtime_node.text
             elsif ticketed_showtime["href"].nil?

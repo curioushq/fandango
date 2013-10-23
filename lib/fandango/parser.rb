@@ -105,6 +105,7 @@ module Fandango
     def parse_imdb_mappings(collection)
       @doc = Nokogiri.HTML(@source)
       movies = @doc.css("div[class=info]").each do |movie_node|
+      # movies = @doc.css("div[itemtype='http://schema.org/Movie']").each do |movie_node|
         hash = {}
         movie_node.css("div[class=showtimes]").each do | showtimes |
           get_tickets_button = showtimes.css("div[id=get_tickets_button] a")
@@ -135,6 +136,7 @@ module Fandango
             hash[:theater_id] = ticket_url.match(%r{([&?]|%3f|%26|&amp;)tid=(?<id>[a-zA-Z]+)})[:id]
             key = "#{hash[:imdb_id]}:#{hash[:movie_id]}"
             collection[key] = hash
+            hash = {}
           end
         end
       end
